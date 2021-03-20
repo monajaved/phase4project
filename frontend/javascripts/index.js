@@ -134,21 +134,50 @@ function constellationsLinkEvent() {
   
   async function getConstellation(){
       //   debugger;
-      const postPromise = await fetch('http://localhost:3000/constellations/1');
-      const constellation = await postPromise.json();
+        const postPromise = await fetch('http://localhost:3000/constellations');
+        const constellation = await postPromise.json();
+        
+        //   console.log(constellation);
+        
+        let testDiv = document.getElementById("constellationsDiv")
+        let constellationHtml = "";
+        let dropdown = document.getElementById("dropdown")
+        constellation.forEach( consta =>{
+            // //   constellations.push(consta)
+            // constellationHtml = `
+            // <h3>${consta.name}</h3>
+            // <img src="${consta.image}">
+            // `;
+            dropdown.add(new Option(consta.name, consta.image))
+        });
+
+        // testDiv.innerHTML = constellationHtml;     
       
-      console.log(constellation);
-      
-      let testDiv = document.getElementById("constellationsDiv")
-      const html = `
-      <h3>${constellation.name}</h3>
-      <img src="${constellation.image}">
-      `
-      testDiv.innerHTML = html;      
-    }
+    //   function fndropdown(){
+        //   constellation.map((key) => dropdown.add(new Option(key.name, JSON.stringify(key))));
+          
+        //   dropdown.addEventListener("input", () => document.getElementById("optionData").innerHTML = dropdown.value)
+          dropdown.addEventListener("input", () => {
+            let val = dropdown.value
+            // console.log(val)  
+            let singleConstellationHtml = `
+            <img src="${val}">
+            `;
+            testDiv.innerHTML = singleConstellationHtml
+        }
+            )
+
+          // debugger;
+        //   console.log(constellation)
+          // console.log(dropdown)
+          
+        }
+    //     fndropdown();
+    // }
+    // console.log(constellations)
     
     document.addEventListener("DOMContentLoaded", function(){
-        myFunction();
+        // myFunction();
         getConstellation();
         renderForm();
     formLinkEvent();
